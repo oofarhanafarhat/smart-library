@@ -1,9 +1,9 @@
-import { NextResponse } from 'next/server';
+import { NextResponse,NextRequest} from 'next/server';
 import { bookIssues, books } from '@/lib/db/schema';
 import { db } from '@/lib/db/db';
 import { eq, sql, and } from 'drizzle-orm';
 
-async function handleReturnBook(body: any) {
+async function handleReturnBook(body: { studentId: string; bookId: string }) {
   const { studentId, bookId } = body;
 
   if (!studentId || !bookId) {
@@ -29,22 +29,21 @@ async function handleReturnBook(body: any) {
   return NextResponse.json({ message: " Book returned successfully" });
 }
 
-export async function PATCH(req: Request) {
+export async function PATCH(req: NextRequest) {
   try {
     const body = await req.json();
     return await handleReturnBook(body);
   } catch (err: unknown) {
-    console.error(err); // Optional: log for debugging
+  
     return NextResponse.json({ error: "Something went wrong" }, { status: 500 });
   }
 }
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
     return await handleReturnBook(body);
   }catch (err: unknown) {
-  console.error(err); // Optional: log for debugging
   return NextResponse.json({ error: "Something went wrong" }, { status: 500 });
 }
 }

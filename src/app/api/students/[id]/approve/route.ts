@@ -3,7 +3,7 @@ import { students } from '@/lib/db/schema';
 import { eq } from 'drizzle-orm';
 import { NextResponse } from 'next/server';
 
-export async function POST(req: Request, context: { params: { id: string } }) {
+export async function POST(context: { params: { id: string } }) {
   const { id } = await Promise.resolve(context.params);
 
   try {
