@@ -40,31 +40,31 @@ export default function HomePage() {
             href="/scan"
             className="bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded-2xl shadow-lg"
           >
-            📷 Scan QR
+             Scan QR
           </Link>
           <Link
             href="/issue"
             className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-2xl shadow-lg"
           >
-            🧾 Issue Book
+             Issue Book
           </Link>
           <Link
             href="/return"
             className="bg-red-600 hover:bg-red-700 text-white font-semibold px-6 py-3 rounded-2xl shadow-lg"
           >
-            🔄 Return Book
+             Return Book
           </Link>
           <Link
             href="/books"
             className="bg-yellow-600 hover:bg-yellow-700 text-white font-semibold px-6 py-3 rounded-2xl shadow-lg"
           >
-            📚 View Books
+             View Books
           </Link>
           <Link
             href="/admin"
             className="bg-gray-800 hover:bg-gray-900 text-white font-semibold px-6 py-3 rounded-2xl shadow-lg"
           >
-            ⚙️ Admin Panel
+             Admin Panel
           </Link>
         </div>
 

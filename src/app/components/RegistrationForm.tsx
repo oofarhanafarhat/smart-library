@@ -43,7 +43,7 @@ export default function StudentRegistration() {
 
   return (
     <div className="max-w-md mx-auto bg-white p-6 rounded-xl mt-10 shadow-md space-y-4">
-      <h2 className="text-xl font-bold text-center">📋 Student Registration</h2>
+      <h2 className="text-xl font-bold text-center"> Student Registration</h2>
 
  <input
   type="text"

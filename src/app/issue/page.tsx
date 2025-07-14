@@ -47,13 +47,18 @@ export default function IssuePage() {
         const res = await axios.get(`/api/students/${studentIdFromQR}`);
         setStudent(res.data.student);
         setMessage(""); // clear any previous error
-      } catch (err: any) {
-        if (err.response?.status === 403) {
-          setMessage("❌ Student not approved yet");
-        } else {
-          setMessage("❌ Student not found");
-        }
-      }
+} catch (err: unknown) {
+  if (axios.isAxiosError(err)) {
+    if (err.response?.status === 403) {
+      setMessage("❌ Student not approved yet");
+    } else {
+      setMessage("❌ Student not found");
+    }
+  } else {
+    setMessage("❌ An unexpected error occurred");
+  }
+}
+
     };
 
     fetchStudent();
