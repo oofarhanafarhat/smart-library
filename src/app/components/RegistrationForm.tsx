@@ -13,7 +13,7 @@ export default function StudentRegistration() {
 
   const handleRegister = async () => {
     if (!name || !email || !phoneNumber) {
-      setMessage('❌ Please fill in all fields.');
+      setMessage(' Please fill in all fields.');
       return;
     }
 
@@ -35,9 +35,9 @@ export default function StudentRegistration() {
     });
 
     if (res.ok) {
-      setMessage('✅ Student registered successfully!');
+      setMessage(' Student registered successfully!');
     } else {
-      setMessage('❌ Registration failed.');
+      setMessage(' Registration failed.');
     }
   };
 
@@ -76,20 +76,20 @@ export default function StudentRegistration() {
       </button>
 
 {message && (
-  <p className={`text-center font-semibold ${message.startsWith('✅') ? 'text-green-600' : 'text-red-500'}`}>
+  <p className={`text-center font-semibold ${message.startsWith(' ') ? 'text-green-600' : 'text-red-500'}`}>
     {message}
   </p>
 )}
 {qrImage && (
   <div className="text-center mt-4 space-y-2">
-    <p className="font-semibold">🎉 Student ID: {studentId}</p>
+    <p className="font-semibold"> Student ID: {studentId}</p>
     <p><strong>Name:</strong> {name}</p>
     <p><strong>Email:</strong> {email}</p>
     <p><strong>Phone:</strong> {phoneNumber}</p>
     <img src={qrImage} alt="QR Code" className="mx-auto border p-2 rounded-lg shadow" />
 
     <p className="mt-4 text-sm text-gray-600">
-      📌 <span className="font-medium">Please save this QR code</span> as a screenshot or print it for future use.
+       <span className="font-medium">Please save this QR code</span> as a screenshot or print it for future use.
     </p>
     <p className="mt-4 text-sm text-green-600">
       Thank you for registering.

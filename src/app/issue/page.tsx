@@ -81,23 +81,23 @@ export default function IssuePage() {
   // ✅ Issue Book handler
   const handleIssue = async () => {
     if (!student) {
-      setMessage("❌ Student not loaded");
+      setMessage(" Student not loaded");
       return;
     }
 
     if (!selectedBook || !issueDate || !returnDate) {
-      setMessage("❌ Please fill all fields");
+      setMessage(" Please fill all fields");
       return;
     }
 
     const today = new Date().toISOString().split("T")[0];
     if (issueDate < today) {
-      setMessage("❌ Issue date cannot be in the past");
+      setMessage(" Issue date cannot be in the past");
       return;
     }
 
     if (returnDate < issueDate) {
-      setMessage("❌ Return date cannot be before issue date");
+      setMessage(" Return date cannot be before issue date");
       return;
     }
 
@@ -110,13 +110,13 @@ export default function IssuePage() {
         returnDate,
       });
 
-      setMessage("✅ Book issued successfully");
+      setMessage(" Book issued successfully");
       setSelectedBook("");
       setReturnDate("");
       setIssueDate(today); // reset
     } catch (err) {
       console.error(err);
-      setMessage("❌ Failed to issue book");
+      setMessage(" Failed to issue book");
     } finally {
       setLoading(false);
     }
@@ -124,7 +124,7 @@ export default function IssuePage() {
 
   return (
     <div className="max-w-xl mx-auto mt-10 p-6 bg-white rounded-xl shadow space-y-6">
-      <h2 className="text-2xl font-bold text-center text-gray-800">📚 Issue Book</h2>
+      <h2 className="text-2xl font-bold text-center text-gray-800"> Issue Book</h2>
 
       {/* ✅ Student Info or Loading/Error */}
       {student ? (
@@ -192,7 +192,7 @@ export default function IssuePage() {
       {message && (
         <div
           className={`mt-4 text-center font-medium ${
-            message.startsWith("✅") ? "text-green-600" : "text-red-500"
+            message.startsWith(" ") ? "text-green-600" : "text-red-500"
           }`}
         >
           {message}

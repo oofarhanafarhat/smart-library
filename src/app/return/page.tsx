@@ -76,16 +76,16 @@ export default function ReturnBookPage() {
         studentId: scannedId,
         bookId: selectedBook,
       });
-      setMessage("✅ Book returned successfully");
-    } catch (err) {
+      setMessage(" Book returned successfully");
+    } catch (err:unknown) {
       console.error(err);
-      setMessage("❌ Failed to return book");
+      setMessage(" Failed to return book");
     }
   };
 
   return (
     <div className="max-w-lg mx-auto mt-10 p-6 bg-white rounded-xl shadow text-center space-y-4">
-      <h2 className="text-xl font-bold">📦 Return Book via QR</h2>
+      <h2 className="text-xl font-bold">Return Book via QR</h2>
 
       {!scannedId && (
         <>
@@ -130,7 +130,7 @@ export default function ReturnBookPage() {
       {message && (
         <div
           className={`mt-4 font-semibold text-lg ${
-            message.startsWith("✅") ? "text-green-600" : "text-red-600"
+            message.startsWith(" ") ? "text-green-600" : "text-red-600"
           }`}
         >
           {message}

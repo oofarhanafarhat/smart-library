@@ -23,7 +23,7 @@ export default function ViewBooksPage() {
 
   return (
     <div className="max-w-5xl mx-auto mt-10 p-6 bg-white rounded-xl shadow space-y-6">
-      <h2 className="text-2xl font-bold text-center text-gray-800">📚 Available Books</h2>
+      <h2 className="text-2xl font-bold text-center text-gray-800">Available Books</h2>
 
       {books.length === 0 ? (
         <p className="text-center text-gray-500">No books available right now.</p>

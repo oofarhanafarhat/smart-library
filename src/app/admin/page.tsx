@@ -22,7 +22,7 @@ export default function AdminDashboard() {
     try {
       const res = await axios.get("/api/students?status=all");
       setStudents(res.data.students || []);
-    } catch (error) {
+    } catch (error:unknown) {
       console.error("Error fetching students", error);
     }
   };
@@ -32,10 +32,10 @@ export default function AdminDashboard() {
     setMessage("");
     try {
       await axios.post(`/api/students/${id}/approve`);
-      setMessage("✅ Student approved!");
+      setMessage(" Student approved!");
       fetchStudents();
     } catch {
-      setMessage("❌ Failed to approve student");
+      setMessage(" Failed to approve student");
     } finally {
       setLoading(false);
     }
@@ -52,7 +52,7 @@ export default function AdminDashboard() {
     <div className="min-h-screen bg-gray-100 p-6">
       <div className="max-w-7xl mx-auto space-y-8">
         <h1 className="text-4xl font-bold text-center text-blue-800">
-          📊 Admin Dashboard
+          Admin Dashboard
         </h1>
 
         {message && (
@@ -64,7 +64,7 @@ export default function AdminDashboard() {
         {/* Pending Students */}
         <section>
           <h2 className="text-2xl font-semibold text-yellow-700 mb-4">
-            ⏳ Pending Students
+             Pending Students
           </h2>
           {pending.length === 0 ? (
             <p className="text-gray-500">No pending requests.</p>
@@ -89,7 +89,7 @@ export default function AdminDashboard() {
                     className="bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded mt-2 w-full transition duration-200"
                     disabled={loading}
                   >
-                    ✅ Approve
+                     Approve
                   </button>
                 </div>
               ))}
@@ -100,7 +100,7 @@ export default function AdminDashboard() {
         {/* Approved Students */}
         <section>
           <h2 className="text-2xl font-semibold text-green-700 mt-10 mb-4">
-            ✅ Approved Students
+             Approved Students
           </h2>
           {approved.length === 0 ? (
             <p className="text-gray-500">No approved students yet.</p>

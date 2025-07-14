@@ -60,12 +60,12 @@ export async function POST(req: Request) {
           console.warn('❗ Invalid phone format for WhatsApp:', cleaned);
         } else {
           const to = 'whatsapp:' + cleaned;
-          console.log("✅ Sending WhatsApp to:", to);
+          console.log(" Sending WhatsApp to:", to);
 
           await twilioClient.messages.create({
             from: WHATSAPP_FROM,
             to,
-            body: `✅ Hi ${student.name}! Your book “${book.title}” has been issued.\nReturn by: ${ret.toLocaleDateString()}\nHappy reading! 📚`
+            body: ` Hi ${student.name}! Your book “${book.title}” has been issued.\nReturn by: ${ret.toLocaleDateString()}\nHappy reading! 📚`
           });
         }
       }
@@ -73,7 +73,7 @@ export async function POST(req: Request) {
       console.error('[TWILIO_ERROR]', twilioErr);
     }
 
-    return NextResponse.json({ message: '✅ Book issued successfully' });
+    return NextResponse.json({ message: ' Book issued successfully' });
   } catch (err: unknown) {
     console.error('[ISSUE_BOOK_ERROR]', err);
     return new NextResponse('❌ Failed to issue book', { status: 500 });

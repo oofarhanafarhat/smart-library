@@ -21,12 +21,12 @@ async function handleReturnBook(body: any) {
       )
     );
 
-  // ✅ Increase available copies
+
   await db.update(books)
     .set({ availableCopies: sql`${books.availableCopies} + 1` })
     .where(eq(books.id, bookId));
 
-  return NextResponse.json({ message: "✅ Book returned successfully" });
+  return NextResponse.json({ message: " Book returned successfully" });
 }
 
 export async function PATCH(req: Request) {
