@@ -12,7 +12,7 @@ export async function GET(req: Request) {
   try {
     const qr = await QRCode.toDataURL(data); // base64 PNG
     return NextResponse.json({ qr });
-  } catch (err) {
+  } catch (err: unknown) {
     console.error('QR generation error:', err);
     return NextResponse.json({ error: 'QR generation failed' }, { status: 500 });
   }

@@ -29,7 +29,7 @@ export async function GET(req: Request) {
     }
 
     return NextResponse.json({ students: result });
-  } catch (error) {
+  } catch (error: unknown) {
     console.error("[GET_STUDENTS_ERROR]", error);
     return new NextResponse("Failed to fetch students", { status: 500 });
   }

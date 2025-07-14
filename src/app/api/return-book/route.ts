@@ -33,9 +33,9 @@ export async function PATCH(req: Request) {
   try {
     const body = await req.json();
     return await handleReturnBook(body);
-  } catch (error) {
-    console.error('[RETURN_BOOK_ERROR]', error);
-    return new NextResponse("Failed to return book", { status: 500 });
+  } catch (err: unknown) {
+    console.error(err); // Optional: log for debugging
+    return NextResponse.json({ error: "Something went wrong" }, { status: 500 });
   }
 }
 
@@ -43,8 +43,8 @@ export async function POST(req: Request) {
   try {
     const body = await req.json();
     return await handleReturnBook(body);
-  } catch (error) {
-    console.error('[RETURN_BOOK_ERROR]', error);
-    return new NextResponse("Failed to return book", { status: 500 });
-  }
+  }catch (err: unknown) {
+  console.error(err); // Optional: log for debugging
+  return NextResponse.json({ error: "Something went wrong" }, { status: 500 });
+}
 }

@@ -16,7 +16,7 @@ export async function GET() {
         pendingStudents: pending.length,
       },
     });
-  } catch (error) {
+  } catch (error: unknown) {
     console.error("[GET_STATS_ERROR]", error);
     return new NextResponse("Failed to fetch stats", { status: 500 });
   }

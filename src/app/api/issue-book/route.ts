@@ -74,8 +74,8 @@ export async function POST(req: Request) {
     }
 
     return NextResponse.json({ message: '✅ Book issued successfully' });
-  } catch (error) {
-    console.error('[ISSUE_BOOK_ERROR]', error);
+  } catch (err: unknown) {
+    console.error('[ISSUE_BOOK_ERROR]', err);
     return new NextResponse('❌ Failed to issue book', { status: 500 });
   }
 }

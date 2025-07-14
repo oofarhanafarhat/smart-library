@@ -12,8 +12,8 @@ export async function GET() {
       .where(sql`${books.availableCopies} > 0`);
 
     return NextResponse.json({ books: availableBooks });
-  } catch (error) {
-    console.error('[GET_BOOKS_ERROR]', error);
+  } catch (err: unknown) {
+    console.error('[GET_BOOKS_ERROR]', err);
     return new NextResponse('Failed to fetch books', { status: 500 });
   }
 }
