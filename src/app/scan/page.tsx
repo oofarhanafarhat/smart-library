@@ -9,38 +9,47 @@ export default function QRScannerModern() {
   const webcamRef = useRef<Webcam>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [scannedId, setScannedId] = useState('');
-  const [error, setError] = useState('');
+ const [error, setError] = useState('');
 
 useEffect(() => {
   const interval = setInterval(() => {
     const webcam = webcamRef.current;
     const canvas = canvasRef.current;
 
+    if (!webcam || !webcam.video) {
+      setError('Webcam not available');
+      return;
+    }
+
     if (
-      webcam &&
-      webcam.video &&
-      canvas &&
-      webcam.video.readyState === 4 // ✅ video is ready
+      webcam.video.readyState !== 4 ||
+      webcam.video.videoWidth === 0 ||
+      webcam.video.videoHeight === 0
     ) {
-      const video = webcam.video as HTMLVideoElement;
+      // Video stream not ready yet—no error, bas wait karo
+      return;
+    }
 
-      if (video.videoWidth === 0 || video.videoHeight === 0) return;
+    const video = webcam.video as HTMLVideoElement;
+    const context = canvas?.getContext('2d');
+    if (!context || !canvas) {
+      setError('Canvas context not found');
+      return;
+    }
 
-      const context = canvas.getContext('2d');
-      if (!context) return;
+    setError(''); // ✅ sab theek, error clear karo
 
-      canvas.width = video.videoWidth;
-      canvas.height = video.videoHeight;
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
 
-      context.drawImage(video, 0, 0, canvas.width, canvas.height);
+    context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-      const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
-      const code = jsQR(imageData.data, canvas.width, canvas.height);
+    const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+    const code = jsQR(imageData.data, canvas.width, canvas.height);
 
-      if (code && !scannedId) {
-        setScannedId(code.data);
-        window.location.href = `/issue?studentId=${code.data}`;
-      }
+    if (code && !scannedId) {
+      setScannedId(code.data);
+      window.location.href = `/issue?studentId=${code.data}`;
     }
   }, 1000);
 
