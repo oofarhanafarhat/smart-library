@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import QRCode from 'qrcode';
+import Image from 'next/image';
 
 export default function StudentRegistration() {
   const [name, setName] = useState('');
@@ -86,7 +87,7 @@ export default function StudentRegistration() {
     <p><strong>Name:</strong> {name}</p>
     <p><strong>Email:</strong> {email}</p>
     <p><strong>Phone:</strong> {phoneNumber}</p>
-    <img src={qrImage} alt="QR Code" className="mx-auto border p-2 rounded-lg shadow" />
+    <Image src={qrImage} alt="QR Code" className="mx-auto border p-2 rounded-lg shadow" />
 
     <p className="mt-4 text-sm text-gray-600">
        <span className="font-medium">Please save this QR code</span> as a screenshot or print it for future use.

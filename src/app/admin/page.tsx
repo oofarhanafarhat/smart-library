@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Image from "next/image";
 
 interface Student {
   id: string;
@@ -115,8 +116,9 @@ export default function AdminDashboard() {
                   <p><strong>Email:</strong> {student.email}</p>
                   <p><strong>ID:</strong> {student.studentId}</p>
                   <p><strong>Phone:</strong> {student.phoneNumber || "N/A"}</p>
-                  <img
-                    src={student.qrCode}
+                  <Image
+                  src={student.qrCode}
+                    
                     alt="QR Code"
                     className="w-24 h-24 border border-gray-200 rounded"
                   />
