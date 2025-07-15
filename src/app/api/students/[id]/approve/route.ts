@@ -1,25 +1,14 @@
-import { db } from '@/lib/db/db';
-import { students } from '@/lib/db/schema';
-import { eq } from 'drizzle-orm';
-import { NextResponse, NextRequest } from 'next/server';
+import { db } from '@/lib/db/db'
+import { students } from '@/lib/db/schema'
+import { eq } from 'drizzle-orm'
+import { NextRequest, NextResponse } from 'next/server'
 
 export async function POST(
   _req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }   // 👈 v15 signature
 ) {
-  const { id } = params;
+  const { id } = await params                       // 👈 await zaroori hai
 
-  try {
-    await db
-      .update(students)
-      .set({ isApproved: true })
-      .where(eq(students.id, id));
-
-    return NextResponse.json({ message: 'Student approved successfully' });
-  } catch (err: unknown) {
-    return NextResponse.json(
-      { err: 'Approval failed' },
-      { status: 500 }
-    );
-  }
+  await db.update(students).set({ isApproved: true }).where(eq(students.id, id))
+  return NextResponse.json({ message: 'Student approved successfully' })
 }

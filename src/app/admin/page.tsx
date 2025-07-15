@@ -82,6 +82,8 @@ export default function AdminDashboard() {
                   <p><strong>Phone:</strong> {student.phoneNumber || "N/A"}</p>
                   <Image
                     src={student.qrCode}
+                    width={90}
+                    height={90}
                     alt="QR Code"
                     className="w-24 h-24 border border-gray-200 rounded"
                   />
@@ -118,6 +120,8 @@ export default function AdminDashboard() {
                   <p><strong>Phone:</strong> {student.phoneNumber || "N/A"}</p>
                   <Image
                   src={student.qrCode}
+                  width={90}
+                  height={90}
                     
                     alt="QR Code"
                     className="w-24 h-24 border border-gray-200 rounded"
