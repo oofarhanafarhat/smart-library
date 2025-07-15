@@ -16,9 +16,9 @@ export async function POST(
       .where(eq(students.id, id));
 
     return NextResponse.json({ message: 'Student approved successfully' });
-  } catch (error: unknown) {
+  } catch (err: unknown) {
     return NextResponse.json(
-      { error: 'Approval failed' },
+      { err: 'Approval failed' },
       { status: 500 }
     );
   }

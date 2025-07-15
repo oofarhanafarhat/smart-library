@@ -80,7 +80,7 @@ export default function AdminDashboard() {
                   <p><strong>Email:</strong> {student.email}</p>
                   <p><strong>ID:</strong> {student.studentId}</p>
                   <p><strong>Phone:</strong> {student.phoneNumber || "N/A"}</p>
-                  <img
+                  <Image
                     src={student.qrCode}
                     alt="QR Code"
                     className="w-24 h-24 border border-gray-200 rounded"
