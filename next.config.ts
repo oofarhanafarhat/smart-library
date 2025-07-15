@@ -1,13 +1,11 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next';
 
+/** @type {NextConfig} */
 const nextConfig: NextConfig = {
- 
   eslint: {
-    // Build ke dauraan ESLint errors ko ignore karega
+    // build ke dauraan ESLint errors ko ignore karega
     ignoreDuringBuilds: true,
   },
 };
-  /* config options here */
-
 
 export default nextConfig;
