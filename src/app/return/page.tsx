@@ -1,4 +1,4 @@
-// File: src/app/return/page.tsx
+//return/page.tsx
 
 'use client';
 
@@ -24,7 +24,7 @@ export default function ReturnBookPage() {
   useEffect(() => {
     axios.get("/api/books")
       .then((res) => setBooks(res.data.books))
-      .catch(() => setMessage("❌ Failed to load books"));
+      .catch(() => setMessage(" Failed to load books"));
   }, []);
 
   // ✅ QR Scanning logic
@@ -67,7 +67,7 @@ export default function ReturnBookPage() {
   // ✅ Submit return book
   const handleReturn = async () => {
     if (!scannedId || !selectedBook) {
-      setMessage("❌ Please scan ID and select book");
+      setMessage(" Please scan ID and select book");
       return;
     }
 

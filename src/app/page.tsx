@@ -31,7 +31,7 @@ export default function HomePage() {
         </motion.h1>
 
         <p className="text-lg md:text-xl text-gray-200 max-w-2xl mb-6">
-          Automate book issuing, returning, and overdue tracking using QR codes and WhatsApp alerts.
+          Automate book issuing returning and overdue tracking using QR codes and WhatsApp alerts.
         </p>
 
         {/* ✅ Action Buttons */}
