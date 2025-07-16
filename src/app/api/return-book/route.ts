@@ -34,6 +34,7 @@ export async function PATCH(req: NextRequest) {
     const body = await req.json();
     return await handleReturnBook(body);
   } catch (err: unknown) {
+    console.error(err);
   
     return NextResponse.json({ err: "Something went wrong" }, { status: 500 });
   }
@@ -44,6 +45,7 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     return await handleReturnBook(body);
   }catch (err: unknown) {
+      console.error(err);  
   return NextResponse.json({ err: "Something went wrong" }, { status: 500 });
 }
 }

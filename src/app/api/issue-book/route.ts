@@ -27,13 +27,13 @@ export async function POST(req: Request) {
     const todayStripped = new Date(new Date().toDateString());
 
     if (!studentId || !bookId || !issueDate || !returnDate) {
-      return new NextResponse('❌ Missing required fields', { status: 400 });
+      return new NextResponse(' Missing required fields', { status: 400 });
     }
     if (issue < todayStripped) {
-      return new NextResponse('❌ Issue date cannot be in the past', { status: 400 });
+      return new NextResponse(' Issue date cannot be in the past', { status: 400 });
     }
     if (ret <= issue) {
-      return new NextResponse('❌ Return date must be after the issue date', { status: 400 });
+      return new NextResponse(' Return date must be after the issue date', { status: 400 });
     }
 
     await db.insert(bookIssues).values({
@@ -57,7 +57,7 @@ export async function POST(req: Request) {
         const cleaned = student.phoneNumber.trim().replace(/\s+/g, '');
 
         if (!cleaned.startsWith('+')) {
-          console.warn('❗ Invalid phone format for WhatsApp:', cleaned);
+          console.warn(' Invalid phone format for WhatsApp:', cleaned);
         } else {
           const to = 'whatsapp:' + cleaned;
           console.log(" Sending WhatsApp to:", to);
@@ -76,6 +76,6 @@ export async function POST(req: Request) {
     return NextResponse.json({ message: ' Book issued successfully' });
   } catch (err: unknown) {
     console.error('[ISSUE_BOOK_ERROR]', err);
-    return new NextResponse('❌ Failed to issue book', { status: 500 });
+    return new NextResponse(' Failed to issue book', { status: 500 });
   }
 }
