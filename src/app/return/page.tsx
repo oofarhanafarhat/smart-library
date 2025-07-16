@@ -1,5 +1,3 @@
-//return/page.tsx
-
 'use client';
 
 import React, { useRef, useState, useEffect } from 'react';
@@ -7,25 +5,12 @@ import Webcam from 'react-webcam';
 import jsQR from 'jsqr';
 import axios from 'axios';
 
-interface Book {
-  id: string;
-  title: string;
-}
-
 export default function ReturnBookPage() {
   const webcamRef = useRef<Webcam>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [scannedId, setScannedId] = useState('');
-  const [books, setBooks] = useState<Book[]>([]);
-  const [selectedBook, setSelectedBook] = useState('');
   const [message, setMessage] = useState('');
-
-  // ✅ Fetch books to populate dropdown
-  useEffect(() => {
-    axios.get("/api/books")
-      .then((res) => setBooks(res.data.books))
-      .catch(() => setMessage(" Failed to load books"));
-  }, []);
+  const [bookTitle, setBookTitle] = useState('');
 
   // ✅ QR Scanning logic
   useEffect(() => {
@@ -66,18 +51,23 @@ export default function ReturnBookPage() {
 
   // ✅ Submit return book
   const handleReturn = async () => {
-    if (!scannedId || !selectedBook) {
-      setMessage(" Please scan ID and select book");
+    if (!scannedId) {
+      setMessage(" Please scan a student QR code");
       return;
     }
 
     try {
-      await axios.post('/api/return-book', {
+      const res = await axios.post('/api/return-book', {
         studentId: scannedId,
-        bookId: selectedBook,
       });
-      setMessage(" Book returned successfully");
-    } catch (err:unknown) {
+
+      if (res.data.message && res.data.bookTitle) {
+        setBookTitle(res.data.bookTitle);
+        setMessage(` Book "${res.data.bookTitle}" returned successfully`);
+      } else {
+        setMessage(" No unreturned book found for this student");
+      }
+    } catch (err: unknown) {
       console.error(err);
       setMessage(" Failed to return book");
     }
@@ -104,20 +94,6 @@ export default function ReturnBookPage() {
         <>
           <p className="text-blue-700 font-medium">Scanned ID: {scannedId}</p>
 
-          {/* ✅ Book selector */}
-          <select
-            value={selectedBook}
-            onChange={(e) => setSelectedBook(e.target.value)}
-            className="w-full border p-2 rounded"
-          >
-            <option value="">-- Select Book --</option>
-            {books.map((book) => (
-              <option key={book.id} value={book.id}>
-                {book.title}
-              </option>
-            ))}
-          </select>
-
           <button
             onClick={handleReturn}
             className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded"
@@ -130,7 +106,7 @@ export default function ReturnBookPage() {
       {message && (
         <div
           className={`mt-4 font-semibold text-lg ${
-            message.startsWith(" ") ? "text-green-600" : "text-red-600"
+            message.includes('successfully') ? 'text-green-600' : 'text-red-600'
           }`}
         >
           {message}
