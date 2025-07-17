@@ -4,7 +4,7 @@ export const runtime = 'nodejs';
 import { db } from '@/lib/db/db';
 import { books, bookIssues, students } from '@/lib/db/schema';
 import { NextResponse } from 'next/server';
-import { eq } from 'drizzle-orm';
+import { eq,and } from 'drizzle-orm';
 import { sql } from 'drizzle-orm';
 import Twilio from 'twilio';
 
@@ -77,5 +77,34 @@ export async function POST(req: Request) {
   } catch (err: unknown) {
     console.error('[ISSUE_BOOK_ERROR]', err);
     return new NextResponse(' Failed to issue book', { status: 500 });
+  }
+}
+export async function GET(req: Request) {
+  try {
+    const { searchParams } = new URL(req.url);
+    const studentId = searchParams.get('studentId');
+
+    if (!studentId) {
+      return new NextResponse("Missing studentId", { status: 400 });
+    }
+
+    const booksIssued = await db
+      .select({
+        id: books.id,
+        title: books.title,
+      })
+      .from(bookIssues)
+      .innerJoin(books, eq(bookIssues.bookId, books.id))
+      .where(
+        and(
+          eq(bookIssues.studentId, studentId),
+          eq(bookIssues.returned, false)
+        )
+      );
+
+    return NextResponse.json({ books: booksIssued });
+  } catch (err) {
+    console.error("[GET_ISSUE_BOOK_ERROR]", err);
+    return new NextResponse("Failed to fetch issued books", { status: 500 });
   }
 }
